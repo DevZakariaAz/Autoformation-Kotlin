@@ -1,45 +1,53 @@
 package com.example.tuto1
 
 fun main(){
+/*
+    // Array in Kotlin
 
-   /* //array
-    val rockPlanets = arrayOf<String>("Earth" , "Mars", "Venus", "Mercury")
-    val gasPlanets = arrayOf("Jupiter" , "Saturn", "Uranus" , "Neptune")
-    val solarSystem= rockPlanets + gasPlanets
+    val rockPlanets = arrayOf("Earth" , "Mars", "Venus", "Mercury")
+    val gasPlanets  = arrayOf("Jupiter" , "Saturn", "Uranus" , "Neptune")
+
+    val solarSystem = rockPlanets + gasPlanets
+
     println(solarSystem.contentToString())
+    rockPlanets.remove("Mars")
     println(solarSystem[1])
     solarSystem[0] = "little earth"
     println(solarSystem.contentToString())
-   // solarSystem[8] = "new planet"
-    //println(solarSystem.contentToString())
+//    solarSystem[8] = "new planet"
+//    println(solarSystem.contentToString())
 
 */
-    /*
-    // list
 
-    val rockPlanets = listOf<String>("Earth", "Mars", "Venus", "Mercury")
+/*
+        // list in Kotlin
 
-    println(rockPlanets)
-    println(rockPlanets.size)
-    println(rockPlanets[1])
-    println(rockPlanets.get(1))
-    println(rockPlanets.indexOf("Earth"))
-    for(rockPlanet in rockPlanets) {
-    println(rockPlanet)
-    }
-    val gasPlanets = mutableListOf("Jupiter", "Neptune" , "Saturn", "Uranus")
-    gasPlanets.add("newPlanet")
-    println(gasPlanets)
+        val rockPlanets = listOf<String>("Earth", "Mars", "Venus", "Mercury")
 
-     // set
-    val solarSystem = mutableSetOf("Mercury" , "Venus", "Earth" , "Mars")
-    println(solarSystem.size)
-    solarSystem.add("new planet")
-    println(solarSystem.size)
-    println(solarSystem.contains("Pluto"))
+        println(rockPlanets)
+        println("Size of the list = " + rockPlanets.size)
+        println( "Second element = " + rockPlanets[1])
+        println( "Get Third element = " + rockPlanets[2])
+        println( "Index of Earth = " + rockPlanets.indexOf("Earth"))
+        for(rockPlanet in rockPlanets) {
+        println("For each rock planet = " + rockPlanet)
+        }
+        val gasPlanets = mutableListOf("Jupiter", "Neptune" , "Saturn", "Uranus")
+        gasPlanets.add("newPlanet")
+        gasPlanets.remove("newPlanet")
+        println(gasPlanets)
 
+         // set
+        val solarSystem = mutableSetOf("Mercury" , "Venus", "Earth" , "Mars")
+        println(solarSystem.size)
+        solarSystem.add("new planet")
+        println(solarSystem.size)
+        println(solarSystem.contains("Pluto"))
 
 */
+
+
+    // MutableSet in Kotlin
     val solarSystem = mutableMapOf(
         "Mercury" to 0 ,
         "Venus" to 0 ,
