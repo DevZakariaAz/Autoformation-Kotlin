@@ -84,6 +84,15 @@ fun CarteDeVisite(modifier: Modifier = Modifier) {
             onClick = { context.startActivity(emailIntent) }
         )
 
+        // Location Contact
+        val locationIntent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse("https://maps.app.goo.gl/xWsTSyNEu1xQPTH46?g_st=ac")
+        }
+        ContactInfo(
+            label = "Localisation :",
+            value = "Maroc,Tanger",
+            onClick = { context.startActivity(locationIntent) }
+        )
         Spacer(modifier = Modifier.height(16.dp))
 
         // Website Button
