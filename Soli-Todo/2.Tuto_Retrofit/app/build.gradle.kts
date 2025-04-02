@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.lab_view_model"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.lab_view_model"
@@ -56,6 +56,9 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
