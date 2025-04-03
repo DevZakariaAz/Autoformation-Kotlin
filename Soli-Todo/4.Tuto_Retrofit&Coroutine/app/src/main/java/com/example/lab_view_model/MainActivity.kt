@@ -3,13 +3,10 @@ package com.example.lab_view_model
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +16,6 @@ import com.example.lab_view_model.models.Todo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
-
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,35 +28,62 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TodoScreen() {
-    var title by remember { mutableStateOf("Chargement...") }
+    var todos by remember { mutableStateOf<List<Todo>>(emptyList()) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
         try {
-            // Appel API dans un thread IO
-            val response: Response<Todo> = withContext(Dispatchers.IO) {
+            // Récupérer une liste de todos
+            val response: Response<List<Todo>> = withContext(Dispatchers.IO) {
                 RetrofitClient.api.getTodo().execute()
             }
 
             if (response.isSuccessful) {
-                title = response.body()?.title ?: "Aucune donnée"
+                todos = response.body() ?: emptyList()
             } else {
-                title = "Erreur HTTP ${response.code()}"
+                errorMessage = "Erreur HTTP ${response.code()}"
             }
         } catch (e: Exception) {
-            title = "Erreur : ${e.message}"
+            errorMessage = "Erreur : ${e.message}"
         }
     }
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize().padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = title, style = MaterialTheme.typography.titleMedium)
+            Text(
+                text = "Liste des tâches",
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+
+            if (errorMessage != null) {
+                Text(text = errorMessage!!, color = MaterialTheme.colorScheme.error)
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(todos) { todo ->
+                        TodoItem(todo)
+                    }
+                }
+            }
         }
     }
 }
 
+@Composable
+fun TodoItem(todo: Todo) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = todo.title, style = MaterialTheme.typography.titleMedium)
+            Text(text = if (todo.completed) "✔ Terminé" else "❌ En cours", color = MaterialTheme.colorScheme.secondary)
+        }
+    }
+}
